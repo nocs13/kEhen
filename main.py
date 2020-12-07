@@ -10,14 +10,16 @@ class kUrl:
         self.link = ""
 
     def download(self, link, path):
+        res = ''
+        
         if len(link) < 1 or len(path) < 1:
             print >> sys.stderr, "Error: Invalid web link or local folder path."
-            return False
+            return False, res
 
         name = self.name_from_link(link)
         
-        res = ""
-        
+        print  "Web link file name is: " + name
+                
         try:
             r = rs.get(link)
             with open(path + '/' + name, 'wb') as f:
@@ -31,7 +33,7 @@ class kUrl:
         except Exception as e:
             print >> sys.stderr, "Error: " + str(e)
 
-            return False
+            return False, res
 
     def name_from_link(self, link):
         if len(link) < 1:
@@ -50,8 +52,10 @@ class kTorrent:
         self.folder = WORKSPACE
 
     def dw_torrent(self, link):
+        path = ""
+        
         if len(link) < 1:
-            return False
+            return False, path
 
         print 'Checking address ' + str(link)
         
@@ -70,7 +74,6 @@ class kTorrent:
         print('starting', s.name)
 
         res = False
-        path = ""
 
         while (not s.is_seeding):
             s = self.handle.status()
