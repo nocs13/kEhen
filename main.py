@@ -140,6 +140,8 @@ if len(sys.argv) < 2:
     print('Error: torrent link not provided')
     sys.exit(1)
 
+if os.path.exists(WORKSPACE) is False:
+    os.mkdir(WORKSPACE)
 
 url = kUrl()
 stat, tf = url.download(sys.argv[1], WORKSPACE)
